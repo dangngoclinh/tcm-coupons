@@ -1,0 +1,185 @@
+/*.clearfix:before {
+	content: "";
+	display: block;
+	clear: both;
+}
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}*/
+
+.bold {
+	font-weight: bold;
+}
+
+.tcmc-box {
+	position: relative;
+	padding: 10px 20px;
+    border: 1px solid #F0F0F0;
+    background: #FCFCFC;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.tcmc-box p {
+	margin-bottom: 0;
+}
+
+.tcmc-percent {
+	width: 20%;
+}
+
+.tcmc-percent, .tcmc-detail{
+	float: left;
+	
+}
+
+p.tcmc-percent-value {
+	width: 100%;
+	height: 90px;
+	text-align: center;
+	background: #f0f0f0;
+	padding: 10px;
+	text-transform: uppercase;
+	line-height: 35px;
+	color: green;
+	font-size: 22px;
+	border: 1px solid #E4E4E4;
+	border-radius: 5px;
+}
+
+.tcmc-percent-value span {
+	font-weight: bold;
+}
+
+.tcmc-meta {
+	font-size: 12px;
+}
+
+.tcmc-detail {
+	width: 58%;
+	padding: 0 20px;
+}
+
+.tcmc-detail .tcmc-title {
+	font-size: 11px;
+	color: #BEBEBE;
+}
+
+.tcmc-detail ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.tcmc-detail ul li {
+	float: left;
+	padding: 0;
+	margin: 0;
+	font-size: 12px;
+}
+
+.tcmc-title i.fa-check-circle {
+	color: green;
+	margin: 0 10px 0 0;
+}
+
+.tcmc-click {
+	float: right;
+	width: 22%;
+	margin-top: 20px;
+}
+
+.tcmc-click a {
+	display: block;
+    height: 34px;
+    background: #fe6c61;
+    text-align: right;
+    position: relative;
+    border: 2px solid #fe6c61;
+}
+
+.tcmc-click a span.tcmc-copy {
+	line-height: 32px;
+    float: left;
+    color: #fff;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    z-index: 2;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.tcmc-click a span.tcmc-coupon-code {
+	color: #000;
+    font-weight: bold;
+    background: #fff;
+    line-height: 30px;
+    display: block;
+    height: 30px;
+    width: 100px;
+    float: right;
+    padding-right: 5px;
+    z-index: 1;
+}
+
+.tcmc-click a span.tcmc-coupon-code:after {
+	content: "";
+	display: block;
+	width: 32px;
+	height: 32px;
+	border-radius: 6px;
+	position: absolute;
+	right: 6px;
+	top: 8px;
+	z-index: 3;
+	background: -webkit-linear-gradient(52deg,#e14e42 0,#e14e42 49%,rgba(0,122,198,0) 50%,rgba(255,255,255,0) 100%) 0 6px no-repeat;
+	background: linear-gradient(38deg,#e14e42 0,#e14e42 49%,rgba(0,122,198,0) 50%,rgba(255,255,255,0) 100%) 0 6px no-repeat;
+	-webkit-transform: rotateZ(29deg) translate(0,-15px) scaleX(0.9);
+	transform: rotateZ(30deg) translate(0,-14px) scaleX(0.9);
+	-webkit-transition: all 250ms;
+	transition: all 250ms;
+}
+
+.tcmc-click a:hover span.tcmc-coupon-code:after {
+	/*right: 16px;*/
+	background-position: 0;
+	-webkit-transform: rotateZ(19deg) translate(-9px,-5px) scaleX(1);
+	        transform: rotateZ(19deg) translate(-9px,-5px) scaleX(1);
+}
+
+.tcmc-click a span.tcmc-coupon-code:before {
+	z-index: 2;
+	content: "";
+	display: block;
+	width: 90px;
+	height: 30px;
+	background: #fe6c61;
+	position: absolute;
+	top: 0;
+	right: 20px;
+	transform: skewX(20deg);
+	-ms-transform: skewX(20deg);
+	-webkit-transform: skewX(20deg);
+	-webkit-transition: right 0.5s;
+	-webkit-transition: right 250ms;
+	transition: right 250ms;
+}
+
+.tcmc-click a:hover span:before {
+	right: 34px;
+}
+
+
+
+p.tcmc-coupon-title {
+	font-size: 12px;
+}
+
+.tcmc-coupon-note {
+	font-size: 11px !important;
+	font-style: italic;
+	line-height: 20px !important;
+}

@@ -1,0 +1,26 @@
+#ui-datepicker-div {
+	z-index: 99999 !important;
+}
+
+
+.tcmc-clear:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.tcmc-row {
+	margin: 5px 0 10px;
+}
+.tcmc-box label {
+	float: left;
+    line-height: 25px;
+    width: 200px;
+    font-weight: bold;
+}
+
+.tcmc-box input {
+	float: left;
+	width: 500px;
+	padding: 5px 10px;
+}
