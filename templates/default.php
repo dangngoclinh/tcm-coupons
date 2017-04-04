@@ -20,13 +20,23 @@
 		</div>
 
 		<div class="tcmc-click">
-			<a href="#">
+		<?php
+			$store = get_the_terms(get_the_ID(), 'store')[0];
+			$affiliatelink = get_term_meta($store->term_id, 'affiliatelink', true);
+			if(isset($coupon['link']) && !empty($coupon['link'])) {
+				$affiliatelink = $coupon['link'];
+			}
+		?>
+			<a class="coupon-click" href="" data-coupon-id="<?php the_ID();?>" data-url-ref="<?php echo $affiliatelink; ?>">
 				<span class="tcmc-coupon-code"><?php echo $coupon['code'];?></span>
 				<span class="tcmc-copy"><?php _e("Copy Mã", 'tcm-coupons'); ?></span>
 			</a>
 		</div>
 	</div>
-	<p class ="tcmc-coupon-note clearfix">
-		<span class="bold"><?php _e('Node: ', 'tcm-coupons'); ?></span> <?php the_content();?>
-	</p>
+	<?php
+		$content = get_the_content();
+		if(!empty($content)) {
+			echo '<p class ="tcmc-coupon-note clearfix">' . $content . '</p>';
+		}
+	?>
 </div>

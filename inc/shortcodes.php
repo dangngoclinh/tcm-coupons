@@ -28,13 +28,12 @@ function coupons_function( $atts ) {
         );
         $query = new WP_Query($args);
         if($query->have_posts()) {
-            while($query->have_posts()) {
-                $query->the_post();
+            while($query->have_posts()) : $query->the_post();
                 $coupon = get_post_meta(get_the_ID(), 'coupon_details', true);
                 $coupon_exp = get_post_meta(get_the_ID(), 'coupon_exp', true);
                 include (TCM_COUPON_DIR . 'templates/default.php');
 
-            }
+            endwhile;
             wp_reset_postdata();
         }
     }

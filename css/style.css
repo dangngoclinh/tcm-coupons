@@ -183,3 +183,156 @@ p.tcmc-coupon-title {
 	font-style: italic;
 	line-height: 20px !important;
 }
+
+.modal {
+	position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+	position: relative;
+	margin: 100px auto;
+    background: #fefefe;
+    max-width: 850px;
+    padding: 20px 0;
+    border-radius: 5px;
+}
+
+.modal-content .coupon-item-content {
+	    text-align: center;
+}
+
+.modal-content .close {
+	position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 15px;
+    font-weight: bold;
+    display: block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.modal-content .coupon-details {
+	    background: #f1f1f1;
+    padding: 40px;
+}
+
+.modal-content .code-copy {
+	    text-align: center;
+}
+
+.modal-content .button-code {
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 3px;
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: auto;
+    height: 50px;
+    padding: 0 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 50px;
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+.modal-content .button-copy {
+    display: inline-block;
+    width: auto;
+    padding: 0 10px;
+    height: 50px;
+    background: #4db2ec;
+    border: 1px solid #4db2ec;
+    border-radius: 3px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    vertical-align: middle;
+    color: #fff;
+    font-weight: bold;
+    line-height: 50px;
+    font-size: 12px;
+}
+
+.modal-content .button-copy.copied {
+	background: #10b48a;
+	border: 1px solid #0e9d78;
+}
+
+.modal-content .coupon-share {
+	text-align: center;
+}
+
+.coupon-percent-wrap, .coupon-type, .coupon-exp {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.coupon-form {
+	border: 1px solid #f1f1f1;
+    text-align: center;
+    border-left: none;
+    padding: 20px;
+    border-right: none;
+    background-color: #F4F4F4;
+}
+
+.coupon-form input {
+	width: 150px;
+}
+
+.coupon-type, .coupon-exp {
+	width: 130px;
+	padding: 20px 0 0 0;
+	color: #949494;
+}
+
+.coupon-type p, .coupon-exp p {
+	font-size: 13px !important; 
+	line-height: 20px;
+}
+
+.coupon-type i, .coupon-exp i {
+	font-size: 25px;
+}
+
+.modal-content .coupon-percent {
+    margin-top: -30px;
+}
+
+.modal-content .percent {
+    width: 120px;
+    height: 120px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    text-align: center;
+    background: #fff;
+    padding: 10px;
+}
+
+.coupon-share .coupon-percent-value {
+	width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 5px solid #f1f1f1;
+    font-size: 27px;
+    line-height: 90px;
+    font-weight: bold;
+}
+
+.coupon-content {
+	padding: 20px 20px 0;
+    margin-bottom: 0;
+}

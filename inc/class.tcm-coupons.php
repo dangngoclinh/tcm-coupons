@@ -31,7 +31,13 @@ class TCMCoupons {
 
 		//register texonamy
 		add_action('init', array('TCMCoupons', 'custom_taxonomy'));
-		add_action('store_add_form_fields', array('TCMCoupons', 'store_taxonomy_add_field_linkaff'));
+
+		add_action('store_add_form_fields', array('TCMCoupons', 'store_taxonomy_add_field_linkaff'), 10, 1);
+		add_action('store_edit_form_fields', array('TCMCoupons', 'store_taxonomy_edit_field_linkaff'), 10, 1 );
+
+  
+		add_action( 'create_store', array('TCMCoupons', 'save_store_taxonomy_field_linkaff'), 10, 1 );
+		add_action( 'edited_store', array('TCMCoupons', 'save_store_taxonomy_field_linkaff'), 10, 1 );
 
 		//register meta box for coupon
 		add_action('add_meta_boxes', array('TCMCoupons', 'add_meta_box'));
@@ -42,6 +48,8 @@ class TCMCoupons {
 		add_action('save_post', array('TCMCoupons', 'save_post_meta'));
 
 		add_action('wp_enqueue_scripts', array('TCMCoupons', 'tcm_coupons_style'), 12);
+
+		add_filter('the_content', array('TCMCoupons', 'modal_coupon'), 50, 1);
 
 	}
 	
@@ -83,7 +91,7 @@ class TCMCoupons {
 			'supports'              => array( 'title', 'editor', 'author', /*'custom-fields',*/ ),
 			'taxonomies'            => array( 'store' ),
 			'hierarchical'          => false,
-			'public'                => true,
+			'public'                => false,
 			'show_ui'               => true,
 			'show_in_menu'          => true,
 			'menu_position'         => 5,
@@ -136,13 +144,35 @@ class TCMCoupons {
 		register_taxonomy( 'store', array( 'coupon' ), $args );
 	}
 
-	public static function store_taxonomy_add_field_linkaff() {
+	public static function store_taxonomy_add_field_linkaff($term) {
 		
 		echo '<div class="form-field">
-			<label for="term_meta[class_term_meta]">' . __( 'Affiliate Link', 'tcm-coupons' ) . '</label>
-			<input type="text" name="term_meta[class_term_meta]" id="term_meta[class_term_meta]" value="">
+			<label for="affiliatelink">' . __( 'Affiliate Link', 'tcm-coupons' ) . '</label>
+			<input type="text" name="affiliatelink" id="affiliatelink" value="">
 			<p class="description">' . __( 'Enter affiliate link for this store','tcm-coupons' ) . '</p>
 		</div>'	;
+	}
+
+	public static function store_taxonomy_edit_field_linkaff($term) {
+		
+		?>		  
+		<tr class="form-field">  
+		    <th scope="row" valign="top">  
+		        <label for="affiliatelink"><?php _e('Affiliate Link'); ?></label>  
+		    </th>  
+		    <td>  
+		        <input type="text" name="affiliatelink" id="affiliatelink" value="<?php echo get_term_meta($term->term_id, 'affiliatelink', true); ?>"><br />  
+		        <span class="description"><?php _e('Affiliate Link', 'tcm-coupons'); ?></span>  
+		    </td>  
+		</tr>  
+		<?php
+	}
+
+	public static function save_store_taxonomy_field_linkaff($term_id) {
+
+		if( isset($_POST['affiliatelink'] )) {
+			update_term_meta($term_id, 'affiliatelink', esc_attr($_POST['affiliatelink']), '');
+		}
 	}
 
 	public static function add_meta_box() {
@@ -192,6 +222,55 @@ class TCMCoupons {
 
 	public static function tcm_coupons_style() {
 		wp_enqueue_style('tcm-coupons-style', TCM_COUPON_URL . 'css/style.css', array('parent-style'));
+		wp_enqueue_style('jquery-ui-style', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css');
+		wp_enqueue_script('tcm-coupons-script', TCM_COUPON_URL . 'js/script.js', array('jquery', 'jquery-ui-dialog'));
+	}
+
+	public static function modal_coupon($content) {
+		$result = '';
+		if(isset($_GET['c'])) {
+
+			$post = get_post($_GET['c']);
+			$coupon = get_post_meta($post->ID, 'coupon_details', true);
+			$coupon_exp = get_post_meta($post->ID, 'coupon_exp', true);
+			$result = '
+				<!-- The Modal -->
+				<div id="myModal" class="modal">
+
+				  <!-- Modal content -->
+				  <div class="modal-content">
+				    <span class="close js-close">&times;</span>
+				    <div class="coupon-item-content">
+				    <h3>' . $post->post_title .'</h3>
+				    </div>
+				    <div class="coupon-details">
+					    <div class="code-copy">
+					    	<div class="button-code js-selectcode">'. $coupon['code'] .'</div><button data-code="'. $coupon['code'] .'" class="button button-copy js-copy">Copy</button>
+					    </div>
+				    </div>
+				    <div class="coupon-share">
+				    	<div class="coupon-type"><i class="fa fa-gift" aria-hidden="true"></i><p>Code</p></div>
+				    	<div class="coupon-percent-wrap">
+					    	<div class="coupon-percent">
+					    		<div class="percent">
+					    		<div class="coupon-percent-value">' . $coupon['percent'] . '</div>
+					    		</div>
+					    	</div>
+				    	</div>
+				    	<div class="coupon-exp"><i class="fa fa-clock-o" aria-hidden="true"></i><p>Hết hạn: ' . $coupon_exp . '</p></div>
+				    </div>
+				  	<div class="coupon-form">
+				  		<label>Nhận Coupon Qua Email:</label>
+				  		<input type="text" name="email_mc" />
+				  		<button class="button email-mc-subscriber">Nhận</botton>
+				  	</div>
+				  	<p class="coupon-content">' . $post->post_content . '</p>
+				  </div>
+
+				</div>
+			';
+		}
+		return $content . $result;
 	}
 
 }
