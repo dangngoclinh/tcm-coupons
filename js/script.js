@@ -38,5 +38,33 @@ jQuery(document).ready(function($) {
 		}, 2000);
 	});
 
-	
+	$("button.email-mc-subscriber").click(function() {
+		var button = $(this);
+		var coupon_form = button.closest('.coupon-form');
+		coupon_form.addClass('send');
+
+		button.attr('disabled', 'disabled');
+		var input_to_email = $("#to_email");
+		input_to_email.attr('disabled', 'disabled');
+
+		var ajax_admin = td_ajax_url;
+		var to_email = input_to_email.val();
+		var coupon = button.attr('data-coupon');
+		$.ajax({
+			url: ajax_admin,
+			type: "POST",
+			data: {
+				'action': 'coupon_to_email',
+				'to': to_email,
+				'coupon': coupon
+			},
+			success: function(data) {
+				alert('thanh cong', data.success);
+				coupon_form.removeClass('send');
+				coupon_form.addClass('complete');
+				button.html("Đã Gửi");
+			}
+		});
+	});
+
 });

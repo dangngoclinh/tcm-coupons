@@ -249,21 +249,25 @@ p.tcmc-coupon-title {
 
 }
 
-.modal-content .button-copy {
-    display: inline-block;
-    width: auto;
+.button {
     padding: 0 10px;
-    height: 50px;
-    background: #4db2ec;
+    display: inline-block;
+
     border: 1px solid #4db2ec;
     border-radius: 3px;
+    background: #4db2ec;
+    color: #fff;
+    font-size: 12px;
+}
+
+.modal-content .button-copy {
+    width: auto;
+    height: 50px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     vertical-align: middle;
-    color: #fff;
     font-weight: bold;
     line-height: 50px;
-    font-size: 12px;
 }
 
 .modal-content .button-copy.copied {
@@ -292,6 +296,41 @@ p.tcmc-coupon-title {
 .coupon-form input {
 	width: 150px;
 }
+
+.coupon-form input:focus {
+	border-color: #fff;
+}
+
+.coupon-form button:disabled
+.coupon-form input:disabled {
+	background-color: #f1f1f1;
+}
+
+.coupon-form .email-mc-subscriber {
+	position: relative;
+	padding-left: 20px;
+	padding-right: 20px;
+	height: 34px;
+    line-height: 34px;
+    border: none;
+	text-align: left;
+}
+
+.coupon-form.send button.email-mc-subscriber {
+	width: 100px;
+
+}
+.coupon-form.send button.email-mc-subscriber:before {
+	position: absolute;
+	right: 10px;
+	content: '';
+	display: inline-block;
+	margin: 4px;
+	width: 26px;
+	height: 26px;
+	background-image: url('../images/flickr.svg');
+}
+
 
 .coupon-type, .coupon-exp {
 	width: 130px;

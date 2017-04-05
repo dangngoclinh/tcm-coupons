@@ -51,6 +51,10 @@ class TCMCoupons {
 
 		add_filter('the_content', array('TCMCoupons', 'modal_coupon'), 50, 1);
 
+		add_action('wp_ajax_coupon_to_email', array('TCMCoupons', 'send_coupon_to_email'));
+		add_action('wp_ajax_nopriv_coupon_to_email', array('TCMCoupons', 'send_coupon_to_email'));
+
+
 	}
 	
 	// Register Custom Post Type
@@ -229,8 +233,8 @@ class TCMCoupons {
 	public static function modal_coupon($content) {
 		$result = '';
 		if(isset($_GET['c'])) {
-
-			$post = get_post($_GET['c']);
+			$coupon_id = $_GET['c'];
+			$post = get_post($coupon_id);
 			$coupon = get_post_meta($post->ID, 'coupon_details', true);
 			$coupon_exp = get_post_meta($post->ID, 'coupon_exp', true);
 			$result = '
@@ -261,8 +265,8 @@ class TCMCoupons {
 				    </div>
 				  	<div class="coupon-form">
 				  		<label>Nhận Coupon Qua Email:</label>
-				  		<input type="text" name="email_mc" />
-				  		<button class="button email-mc-subscriber">Nhận</botton>
+				  		<input type="email" name="email_mc" id="to_email" />
+				  		<button class="button email-mc-subscriber" data-coupon="' . $coupon_id . '">'. __('Nhận', 'tcm-coupons') .'</botton>
 				  	</div>
 				  	<p class="coupon-content">' . $post->post_content . '</p>
 				  </div>
@@ -273,4 +277,20 @@ class TCMCoupons {
 		return $content . $result;
 	}
 
+	public static function send_coupon_to_email() {
+		if(!isset($_POST['to']) || !isset($_POST['coupon'])) {
+			wp_send_json_error();
+		}
+		$coupon_id = $_POST['coupon'];
+
+
+		$content = file_get_contents(TCM_COUPON_DIR . 'templates/email.php');
+
+		$to      = $_POST['to'];
+		$subject = 'Mã giảm giá từ TapChiMua';
+		$body    = $content;
+		$headers = array('Content-Type: text/html; charset=UTF-8');	
+		wp_mail( $to, $subject, $body, $headers );
+		wp_send_json_success('Đã Gửi');	
+	}
 }
